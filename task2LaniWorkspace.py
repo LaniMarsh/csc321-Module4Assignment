@@ -14,55 +14,19 @@ else:
 nltk.download('words')
 from nltk.corpus import words
 
-
-# Function to parse a single line from the shadow file
 def parse(entry):
     parts = entry.split('$')
     user = parts[0].split(':')[0]
-    full_hash = '$'.join(parts[1:])  # Reconstruct the full bcrypt hash
+    full_hash = '$'.join(parts[1:])
     print(f"Parsed -> User: {user}, Full Hash: {full_hash}")
     return user, f"${full_hash}"
 
-
-# Function to attempt cracking a password
 def crack_password(user, stored_hash):
     print(f"Cracking password for {user} with hash {stored_hash}")
     word_list = [word.lower() for word in words.words() if 6 <= len(word) <= 10]
     print(f"Loaded {len(word_list)} possible words.")
 
-    # Match found for Bilbo: welcome
-    # User: Bilbo, Password: welcome, Time taken: 2344.64 seconds
-    # Match found for Gandalf: wizard
-    # User: Gandalf, Password: wizard, Time taken: 7495.38 seconds
-    # Match found for Thorin: diamond
-    # User: Thorin, Password: diamond, Time taken: 2344.04 seconds
-    # Match found for Fili: desire
-    # User: Fili, Password: desire, Time taken: 1880.71 seconds
-    # Match found for Kili: ossify
-    # User: Kili, Password: ossify, Time taken: 2725.14 seconds
-    # Match found for Balin: hangout
-    # User: Balin, Password: hangout, Time taken: 13274.77 seconds
-    # Match found for Dwalin: drossy
-    # User: Dwalin, Password: drossy, Time taken: 2730.43 seconds
-    # Match found for Oin: ispaghul
-    # User: Oin, Password: ispaghul, Time taken: 6315.32 seconds
-    # Match found for Gloin: oversave
-    # User: Gloin, Password: oversave, Time taken: 12465.40 seconds
-    # Match found for Dori: indoxylic
-    # User: Dori, Password: indoxylic, Time taken: 10288.76 seconds
-    # Match found for Nori: swagsman
-    # User: Nori, Password: swagsman, Time taken: 63603.55 seconds
-    # Match found for Ori: airway
-    # User: Ori, Password: airway, Time taken: 9261.85 seconds
-    # Match found for Bifur: corrosible
-    # User: Bifur, Password: corrosible, Time taken: 8044.68 seconds
-    # Match found for Bofur: libellate
-    # User: Bofur, Password: libellate, Time taken: 6359.91 seconds
-    # Match found for Durin: purrone
-    # User: Durin, Password: purrone, Time taken: 51000 seconds
-
-
-    for i, password in enumerate(word_list[60000:], start=60000):
+    for i, password in enumerate(word_list):
         if i % 10000 == 0:
             print(f"Attempt {i}: Trying password '{password}'")
             print(f"Encoded Password: {password.encode()}")
@@ -97,3 +61,19 @@ if __name__ == '__main__':
             print(f"User: {user}, Password: {password}, Time taken: {end_time - start_time:.2f} seconds")
         else:
             print(f"User: {user}, Password not found after {end_time - start_time:.2f} seconds")
+
+        # User: Bilbo, Password: welcome, Time taken: 2344.64 seconds
+        # User: Gandalf, Password: wizard, Time taken: 7495.38 seconds
+        # User: Thorin, Password: diamond, Time taken: 2344.04 seconds
+        # User: Fili, Password: desire, Time taken: 1880.71 seconds
+        # User: Kili, Password: ossify, Time taken: 2725.14 seconds
+        # User: Balin, Password: hangout, Time taken: 13274.77 seconds
+        # User: Dwalin, Password: drossy, Time taken: 2730.43 seconds
+        # User: Oin, Password: ispaghul, Time taken: 6315.32 seconds
+        # User: Gloin, Password: oversave, Time taken: 12465.40 seconds
+        # User: Dori, Password: indoxylic, Time taken: 10288.76 seconds
+        # User: Nori, Password: swagsman, Time taken: 63603.55 seconds
+        # User: Ori, Password: airway, Time taken: 9261.85 seconds
+        # User: Bifur, Password: corrosible, Time taken: 8044.68 seconds
+        # User: Bofur, Password: libellate, Time taken: 6359.91 seconds
+        # User: Durin, Password: purrone, Time taken: 51000 seconds
